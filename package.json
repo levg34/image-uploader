@@ -1,0 +1,26 @@
+{
+  "name": "image-uploader",
+  "version": "1.0.0",
+  "description": "image uploader for nodejs-chat",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levg34/image-uploader.git"
+  },
+  "keywords": [
+    "openshift",
+    "github"
+  ],
+  "author": "levg34",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levg34/image-uploader/issues"
+  },
+  "homepage": "https://github.com/levg34/image-uploader#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
