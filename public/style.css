@@ -1,0 +1,10 @@
+#dropzone {
+    width: 700px;
+    height: 400px;
+    padding: 10px;
+    border: 5px solid #aaaaaa;
+}
+
+.hover {
+	background-color: #a1ff8e;
+}
