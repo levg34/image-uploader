@@ -11,6 +11,10 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
 })
 
+app.get('/upload', function (req, res) {
+	res.redirect('http://imgur.com/upload')
+})
+
 server.listen(server_port,server_ip_address,function () {
 	console.log("Listening on " + server_ip_address + ", port " + server_port)
 })
