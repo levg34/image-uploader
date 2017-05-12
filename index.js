@@ -1,4 +1,4 @@
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 9000
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 var express = require('express')
@@ -13,6 +13,10 @@ app.get('/', function (req, res) {
 
 app.get('/upload', function (req, res) {
 	res.redirect('http://imgur.com/upload')
+})
+
+app.get('/test', function (req, res) {
+	res.sendFile(__dirname + '/view/upload.html')
 })
 
 server.listen(server_port,server_ip_address,function () {
