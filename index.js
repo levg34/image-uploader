@@ -15,7 +15,7 @@ app.get('/upload', function (req, res) {
 	res.redirect('http://imgur.com/upload')
 })
 
-app.get('/test', function (req, res) {
+app.get('/test/:nickname', function (req, res) {
 	res.sendFile(__dirname + '/view/upload.html')
 })
 
