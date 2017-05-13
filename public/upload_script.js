@@ -1,9 +1,10 @@
 var dropzone = $('#dropzone')
 var file = $('#file')
 var token = ''
-if (location.search&&location.search.split('=').length > 1) {
+if (location.search.split('=').length > 1) {
 	token = location.search.split('=')[1]
 }
+var nickname = location.pathname.split('/')[location.pathname.split('/').length-1]
 
 function sendUrl(url) {
 	$.ajax({
@@ -12,7 +13,7 @@ function sendUrl(url) {
 		type: 'post',
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify({
-			nickname:'levg34',
+			nickname:nickname,
 			event:'send_url',
 			params:url
 		}),
