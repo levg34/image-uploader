@@ -11,11 +11,7 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
 })
 
-app.get('/upload', function (req, res) {
-	res.redirect('http://imgur.com/upload')
-})
-
-app.get('/test/:nickname', function (req, res) {
+app.get('/upload/:nickname', function (req, res) {
 	res.sendFile(__dirname + '/view/upload.html')
 })
 
