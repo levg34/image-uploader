@@ -28,7 +28,7 @@ function sendUrl(url) {
 	})
 }
 
-sendUrl('I received the token: '+token+'.')
+sendUrl('http://afelectrical.com.au/wp-content/uploads/2014/03/Tested-ok.jpg')
 
 dropzone.on('dragover', function(e) {
 	e.preventDefault()
