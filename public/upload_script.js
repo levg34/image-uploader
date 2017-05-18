@@ -6,6 +6,10 @@ if (location.search.split('=').length > 1) {
 }
 var nickname = location.pathname.split('/')[location.pathname.split('/').length-1]
 
+$('#token').val(token)
+$('#nickname').val(nickname)
+
+/*
 function sendUrl(url) {
 	$.ajax({
 		url: 'http://nodechat-levg34.rhcloud.com/emit',
@@ -29,6 +33,7 @@ function sendUrl(url) {
 }
 
 sendUrl('http://afelectrical.com.au/wp-content/uploads/2014/03/Tested-ok.jpg')
+*/
 
 dropzone.on('dragover', function(e) {
 	e.preventDefault()

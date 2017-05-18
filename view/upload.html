@@ -13,6 +13,8 @@
     <div id="dropzone"></div>
     <form action="/upload" enctype="multipart/form-data" method="post">
       <input type="file" name="upload" id="file"/>
+	  <input type="text" name="token" id="token" hidden>
+	  <input type="text" name="nickname" id="nickname" hidden>
       <input type="submit" value="Send file"/>
     </form>
     <script src="/upload_script.js"></script>
