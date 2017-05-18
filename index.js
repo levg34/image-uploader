@@ -19,26 +19,18 @@ app.get('/upload/:nickname', function (req, res) {
 
 app.post('/upload', function (req, res) {
 	var form = new formidable.IncomingForm()
-	console.log('about to parse')
-	form.parse(req, function (error, fields, files) {
-		console.log('parsing done')
-		console.log(files.upload.path)
+	
+	form.parse(req)
 
-		/* Possible error on Windows systems:
-		 tried to rename to an already existing file */
-		fs.rename(files.upload.path, './public/img/test.png', function (error) {
-			if (error) {
-				fs.unlink('./public/img/test.png')
-				fs.rename(files.upload.path, './public/img/test.png')
-			}
-		});
-		res.writeHead(200, {
-			'Content-Type': 'text/html'
-		});
-		res.write('received image:<br/>')
-		res.write('<img src="/img/test.png"/>')
-		res.end()
-	});
+    form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/uploads/' + file.name
+    })
+
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name)
+    })
+
+    res.sendFile(__dirname + '/view/upload.html')
 })
 
 server.listen(server_port,server_ip_address,function () {
