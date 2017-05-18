@@ -5,13 +5,16 @@
     <title>Upload Image</title>
     <link rel="stylesheet" href="/style.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<!--
+    <!--
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
-	-->
+    -->
   </head>
   <body>
     <div id="dropzone"></div>
-	<input type="file" name="file" id="file"/>
-	<script src="/upload_script.js"></script>
+    <form action="/upload" enctype="multipart/form-data" method="post">
+      <input type="file" name="upload" id="file"/>
+      <input type="submit" value="Send file"/>
+    </form>
+    <script src="/upload_script.js"></script>
   </body>
 </html>
