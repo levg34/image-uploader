@@ -22,7 +22,7 @@ app.post('/upload', function (req, res) {
 	console.log('about to parse')
 	form.parse(req, function (error, fields, files) {
 		console.log('parsing done')
-		console.log()
+		console.log(files.upload.path)
 
 		/* Possible error on Windows systems:
 		 tried to rename to an already existing file */
