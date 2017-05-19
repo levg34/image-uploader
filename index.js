@@ -45,12 +45,12 @@ app.post('/upload', function (req, res) {
 			body: postData,
 			json: true
 		}
-		
-		console.log(options)
 
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				console.log(body)
+				//console.log({error:error, response:response, body:body})
+			} else {
+				console.log({error:error, response:response, body:body})
 			}
 		})
 	}
