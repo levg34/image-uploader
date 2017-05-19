@@ -21,9 +21,8 @@ app.post('/upload', function (req, res) {
 	var receivedFields = {}
 
 	function sendURL(_url) {
-		var baseURL = 'http://uploader-levg34.rhcloud.com/'
+		var baseURL = 'http://uploader-levg34.rhcloud.com'
 		if (server_ip_address=='127.0.0.1') {
-			baseURL=server_ip_address+':'+server_port
 			baseURL=server_ip_address+':'+server_port
 		}
 		var url = baseURL+_url
