@@ -18,8 +18,7 @@ app.get('/upload/:nickname', function (req, res) {
 })
 
 app.post('/upload', function (req, res) {
-	var nickname = ''
-	var token = ''
+	var receivedFields = {}
 
 	function sendURL(_url) {
 		var baseURL = 'http://uploader-levg34.rhcloud.com/'
@@ -30,23 +29,25 @@ app.post('/upload', function (req, res) {
 		var url = baseURL+_url
 		
 		var postData = {
-			nickname:nickname,
+			nickname:receivedFields.nickname,
 			event:'send_url',
 			params:url
 		}
 		
 		var headers = {
-			'X-Auth-Token': token
+			'X-Auth-Token': receivedFields.token
 		}
 
 		var options = {
 			url: 'http://nodechat-levg34.rhcloud.com/emit',
-			//url: 'http://localhost:8080/emit',
+			//url: 'http://localhost:8080/emit', http://stackoverflow.com/questions/30128701/parse-form-value-with-formidable-to-filename
 			method: 'post',
 			headers: headers,
 			body: postData,
 			json: true
 		}
+		
+		console.log(options)
 
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
@@ -57,15 +58,11 @@ app.post('/upload', function (req, res) {
 	
 	var form = new formidable.IncomingForm()
 	
-	form.parse(req, function(err, fields, files) {
-		token = fields.token
-		nickname = fields.nickname
-		console.log('parse: '+nickname+' - '+token)
-	})
-
+	form.parse(req).on('field', function(name, field) {
+		receivedFields[name] = field
+    })
     form.on('fileBegin', function (name, file){
-		console.log('fileBegin: '+nickname+' - '+token)
-        file.path = __dirname + '/uploads/' +nickname+'-'+ file.name
+        file.path = __dirname + '/uploads/' + file.name
     })
 
     form.on('file', function (name, file){
