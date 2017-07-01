@@ -106,8 +106,13 @@ app.get('/deleted/:image', function (req, res) {
 	res.render(__dirname + '/view/deleted.html',{file:file})
 })
 
-app.get('/browse/:image', function (req, res) {
-	res.render(__dirname + '/view/browse.html',{file:file})
+app.get('/browse', function (req, res) {
+	var uploaded_files = []
+	fs.readdirSync(__dirname + '/uploads/').forEach(file => {
+		console.log(file)
+		uploaded_files.push(file)
+	})
+	res.render(__dirname + '/view/browse.html',{files: uploaded_files})
 })
 
 server.listen(server_port,server_ip_address,function () {
