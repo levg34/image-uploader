@@ -6,11 +6,20 @@ var app = express()
 var server = require('http').createServer(app)
 var formidable = require('formidable')
 var request = require('request')
+var fs = require('fs')
 
 app.use(express.static(__dirname + '/public'))
+//app.set('view engine', 'ejs')
+app.set('views', __dirname + '/view');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
+})
+
+app.get('/upload', function (req, res) {
+	res.sendFile(__dirname + '/view/upload.html')
 })
 
 app.get('/upload/:nickname', function (req, res) {
@@ -65,13 +74,40 @@ app.post('/upload', function (req, res) {
     })
 
     form.on('file', function (name, file){
-		sendURL('/view/'+file.name)
-		res.redirect('/view/'+file.name)
+		if (receivedFields.nickname&&receivedFields.token) {
+			sendURL('/view/'+file.name)
+		}
+		res.redirect('/success/'+file.name)
     })
 })
 
 app.get('/view/:image', function (req, res) {
 	res.sendFile(__dirname + '/uploads/'+req.params.image)
+})
+
+app.get('/success/:image', function (req, res) {
+	var file = req.params.image
+	var url = req.protocol+'://'+req.get('host')+'/view/'+file
+	res.render(__dirname + '/view/success.html',{img:true,file:file,url:url})
+})
+
+app.delete('/delete/:image', function (req, res) {
+	var file = 'uploads/'+req.params.image
+	try {
+		fs.unlinkSync(file)
+		res.sendStatus(200)
+	} catch (e) {
+		res.status(500).send(e.message)
+	}
+})
+
+app.get('/deleted/:image', function (req, res) {
+	var file = req.params.image
+	res.render(__dirname + '/view/deleted.html',{file:file})
+})
+
+app.get('/browse/:image', function (req, res) {
+	res.render(__dirname + '/view/browse.html',{file:file})
 })
 
 server.listen(server_port,server_ip_address,function () {

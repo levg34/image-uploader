@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Uploader</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<!--
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
+	-->
+  </head>
+  <body>
+    <p><input id="url" type="text" value="<%= url %>"><button onclick="$('#url').focus();$('#url').select();document.execCommand('copy')">Copy URL</button></p>
+    <h1>Success!</h1>
+    <p>You successfully uploaded <%= file %></p>
+	<% if (img) { %>
+	<p><img src="/view/<%= file %>"></p>
+	<% } %>
+	<p><a href="/">Return to main page</a></p>
+	<button onclick="$.ajax({
+		url: '/delete/<%= file %>',
+		type: 'DELETE',
+		success: function(result) {
+			document.location = '/deleted/<%= file %>'
+		},
+		error: function(error) {
+			console.log(error)
+			$('#errors').text(error.responseText)
+		}
+	});">Delete</button>
+	<p id="errors" style="color: red"></p>
+  </body>
+</html>
