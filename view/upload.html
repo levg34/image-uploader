@@ -11,13 +11,13 @@
   </head>
   <body>
     <div id="dropzone" hidden></div>
-    <form action="/upload" enctype="multipart/form-data" method="post">
+    <form id="form" action="/upload" enctype="multipart/form-data" method="post">
       <input type="file" name="upload" id="file"/>
 	  <input type="text" name="token" id="token" hidden>
 	  <input type="text" name="nickname" id="nickname" hidden>
-      <input type="submit" value="Send file"/>
+      <input id="submit_file" type="submit" value="Send file" disabled/>
     </form>
-	<p><a href="/">Return to main page</a></p>
-    <script src="/upload_script.js"></script>
+	<p id="back"><a href="/">Return to main page</a></p>
+    <script src="/upload_script.js"></script>	
   </body>
 </html>

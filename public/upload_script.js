@@ -9,6 +9,10 @@ var nickname = location.pathname.split('/')[location.pathname.split('/').length-
 $('#token').val(token)
 $('#nickname').val(nickname)
 
+if (nickname!='upload') {
+	$('#back').hide()
+}
+
 /*
 function sendUrl(url) {
 	$.ajax({
@@ -77,3 +81,10 @@ function processFiles(files) {
 	reader.readAsDataURL(files[0])
 	
 }
+
+$("#file").change(function(){
+	$('#submit_file').prop('disabled',false)
+	if ($('#file').val()) {
+		$("#form").submit()
+	}
+})
