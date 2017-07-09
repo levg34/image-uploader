@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Uploader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <!--
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
+    -->
+  </head>
+  <body ng-app="app">
+    <h1>Uploader</h1>
+    <!-- Left-aligned media object -->
+    <hr>
+    <div ng-controller="testCtrl" class="container">
+      <div class="media" ng-repeat="image in images">
+        <div class="media-left">
+          <a href="{{image.url}}"><img src="{{image.url}}" class="media-object" style="max-height:100px;max-width:200px"></a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{image.name}}</h4>
+          <p><input type="text" ng-model="image.url"><button>Copy URL</button></p><p><button>View</button> <button>Delete</button></p>
+        </div>
+        <hr ng-show="true">
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

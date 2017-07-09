@@ -18,6 +18,10 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
 })
 
+app.get('/test', function (req, res) {
+	res.sendFile(__dirname + '/view/index2.html')
+})
+
 app.get('/upload', function (req, res) {
 	res.sendFile(__dirname + '/view/upload.html')
 })
@@ -113,6 +117,17 @@ app.get('/browse', function (req, res) {
 		uploaded_files.push(file)
 	})
 	res.render(__dirname + '/view/browse.html',{files: uploaded_files})
+})
+
+app.get('/images', function (req, res) {
+	var uploaded_files = []
+	fs.readdirSync(__dirname + '/uploads/').forEach(file => {
+		if (file != ".gitkeep") {
+			var url = req.protocol+'://'+req.get('host')+'/view/'+file
+			uploaded_files.push({name:file,url:url})
+		}
+	})
+	res.json(uploaded_files)
 })
 
 server.listen(server_port,server_ip_address,function () {
