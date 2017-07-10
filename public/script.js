@@ -63,7 +63,7 @@ app.controller('imgListCtrl', function($scope,$http,alertService) {
 			url: '/delete/'+image,
 			method: 'DELETE'
 		}).then(function(result) {
-			//$scope.refreshImageList()
+			$scope.refreshImageList()
 			alertService.addSuccess(image+' was deleted successfully.')
 		}).catch(function(error) {
 			console.log(error)
