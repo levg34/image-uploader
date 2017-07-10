@@ -24,15 +24,18 @@
     </nav>
     <hr>
     <div ng-controller="testCtrl" class="container">
-      <div class="media" ng-repeat="image in images">
+      <div class="media animate-repeat" ng-repeat="image in images">
         <div class="media-left">
           <a href="{{image.url}}"><img src="{{image.url}}" class="media-object" style="max-height:100px;max-width:200px"></a>
         </div>
         <div class="media-body">
           <h4 class="media-heading">{{image.name}}</h4>
-          <p><input type="text" ng-model="image.url"><button ng-click="copyURL()">Copy URL</button></p><p><button ng-click="viewImage(image.name)">View</button> <button ng-click="deleteImage(image.name)">Delete</button></p>
+          <p><input image-url type="text" ng-model="image.url"><button ng-click="copyURL()">Copy URL</button></p><p><button ng-click="viewImage(image.name)">View</button> <button ng-click="deleteImage(image.name)">Delete</button></p>
         </div>
         <hr ng-show="true">
+      </div>
+      <div class="animate-repeat" ng-if="images.length === 0">
+        <strong>No image found...</strong>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
