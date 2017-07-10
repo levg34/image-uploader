@@ -11,15 +11,24 @@ app.controller('testCtrl', function($scope,$http) {
 		window.location = '/success/'+image
 	}
 	$scope.deleteImage = function(image) {
-		// TODO
+		$http({
+			url: '/delete/'+image,
+			method: 'DELETE'
+		}).then(function(result) {
+			document.location = '/deleted/'+image
+		}).catch(function(error) {
+			console.log(error)
+			$('#errors').text(error.responseText)
+		})
 	}
+	
 	$http({
 		method: 'GET',
 		url: '/images'
 	}).then(function(images) {
 		$scope.images = images.data
-	}).catch(function(errRes) {
-		// Handle errRess
+	}).catch(function(error) {
+		console.log(error)
 	})
 })
 
