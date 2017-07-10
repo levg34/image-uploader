@@ -15,21 +15,23 @@ app.controller('testCtrl', function($scope,$http) {
 			url: '/delete/'+image,
 			method: 'DELETE'
 		}).then(function(result) {
-			document.location = '/deleted/'+image
+			$scope.refreshImageList()
 		}).catch(function(error) {
 			console.log(error)
 			$('#errors').text(error.responseText)
 		})
 	}
-	
-	$http({
-		method: 'GET',
-		url: '/images'
-	}).then(function(images) {
-		$scope.images = images.data
-	}).catch(function(error) {
-		console.log(error)
-	})
+	$scope.refreshImageList = function() {
+		$http({
+			method: 'GET',
+			url: '/images'
+		}).then(function(images) {
+			$scope.images = images.data
+		}).catch(function(error) {
+			console.log(error)
+		})
+	}
+	$scope.refreshImageList()
 })
 
 app.directive('imageUrl', function() {
