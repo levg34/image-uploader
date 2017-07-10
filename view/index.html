@@ -17,16 +17,26 @@
           <a class="navbar-brand" href="/">Uploader</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/upload">Upload</a></li>
+          <li class="active"><a target="_self" href="/">Home</a></li>
+          <li><a target="_self" href="/upload">Upload</a></li>
         </ul>
       </div>
     </nav>
+    <div ng-controller="alertCtrl" class="container">
+      <div class="alert alert-success" ng-repeat="success in successes">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> {{success}}
+      </div>
+      <div class="alert alert-danger" ng-repeat="error in errors">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong> {{error}}
+      </div>
+    </div>
     <hr>
     <div ng-controller="imgListCtrl" class="container">
       <div class="media animate-repeat" ng-repeat="image in images">
         <div class="media-left">
-          <a href="{{image.url}}"><img src="{{image.url}}" class="media-object" style="max-height:100px;max-width:200px"></a>
+          <a target="_self" href="{{image.url}}"><img src="{{image.url}}" class="media-object" style="max-height:100px;max-width:200px"></a>
         </div>
         <div class="media-body">
           <h4 class="media-heading">{{image.name}}</h4>

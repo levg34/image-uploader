@@ -13,7 +13,42 @@ app.config(['$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.headers.get['Pragma'] = 'no-cache'
 }])
 
-app.controller('imgListCtrl', function($scope,$http) {
+app.config(['$locationProvider', function($locationProvider) {
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	})
+}])
+
+app.service('alertService', function() {
+	var errors = []
+	var successes = []
+
+	var addError = function(newObj) {
+		errors.push(newObj)
+	}
+
+	var getErrors = function(){
+		return errors
+	}
+	
+	var addSuccess = function(newObj) {
+		successes.push(newObj)
+	}
+
+	var getSuccesses = function(){
+		return successes
+	}
+
+	return {
+		addError: addError,
+		getErrors: getErrors,
+		addSuccess: addSuccess,
+		getSuccesses: getSuccesses
+	}
+})
+
+app.controller('imgListCtrl', function($scope,$http,alertService) {
 	$scope.images = []
 	$scope.copyURL = function() {
 		$('#url').focus()
@@ -28,10 +63,11 @@ app.controller('imgListCtrl', function($scope,$http) {
 			url: '/delete/'+image,
 			method: 'DELETE'
 		}).then(function(result) {
-			$scope.refreshImageList()
+			//$scope.refreshImageList()
+			alertService.addSuccess(image+' was deleted successfully.')
 		}).catch(function(error) {
 			console.log(error)
-			$('#errors').text(error.responseText)
+			alertService.addError('Error deleting '+image+': '+error.data)
 		})
 	}
 	$scope.refreshImageList = function() {
@@ -58,4 +94,17 @@ app.directive('imageUrl', function() {
 			}
 		}
 	}
+})
+
+app.controller('alertCtrl', function($scope,$location,alertService) {
+	$scope.errors = alertService.getErrors()
+	$scope.successes = alertService.getSuccesses()
+	$scope.dispayAlerts = function() {
+		var params = $location.search()
+		if (params.success) {
+			alertService.addSuccess(params.success+' has been uploaded successfully.')
+			$location.search('success', null)
+		}
+	}
+	$scope.dispayAlerts()
 })
