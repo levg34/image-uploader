@@ -32,6 +32,13 @@ app.service('alertService', function() {
 		return errors
 	}
 	
+	var removeError = function(error) {
+		var index = errors.indexOf(error)
+		if (index>-1) {
+			errors.splice(index,1)
+		}
+	}
+	
 	var addSuccess = function(newObj) {
 		successes.push(newObj)
 	}
@@ -39,12 +46,21 @@ app.service('alertService', function() {
 	var getSuccesses = function(){
 		return successes
 	}
+	
+	var removeSuccess = function (success) {
+		var index = successes.indexOf(success)
+		if (index>-1) {
+			successes.splice(index,1)
+		}
+	}
 
 	return {
 		addError: addError,
 		getErrors: getErrors,
+		removeError: removeError,
 		addSuccess: addSuccess,
-		getSuccesses: getSuccesses
+		getSuccesses: getSuccesses,
+		removeSuccess: removeSuccess
 	}
 })
 
@@ -105,6 +121,12 @@ app.controller('alertCtrl', function($scope,$location,alertService) {
 			alertService.addSuccess(params.success+' has been uploaded successfully.')
 			$location.search('success', null)
 		}
+	}
+	$scope.closeSuccess = function(success) {
+		alertService.removeSuccess(success)
+	}
+	$scope.closeError = function(error) {
+		alertService.removeError(error)
 	}
 	$scope.dispayAlerts()
 })
