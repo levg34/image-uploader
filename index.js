@@ -18,10 +18,6 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
 })
 
-app.get('/test', function (req, res) {
-	res.sendFile(__dirname + '/view/index2.html')
-})
-
 app.get('/upload', function (req, res) {
 	res.sendFile(__dirname + '/view/upload.html')
 })

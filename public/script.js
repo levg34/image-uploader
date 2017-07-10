@@ -8,7 +8,7 @@ app.controller('testCtrl', function($scope,$http) {
 		document.execCommand('copy')
 	}
 	$scope.viewImage = function(image) {
-		window.location = '/success/'+image
+		window.location = '/view/'+image
 	}
 	$scope.deleteImage = function(image) {
 		$http({

@@ -3,18 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title>Uploader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<!--
+    <!--
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
-	-->
+    -->
   </head>
-  <body>
-    <h1>Uploader</h1>
-	<ul>
-    <li><a href="/upload">Upload file</a></li>
-    <li><a href="/browse">Browse files</a></li>
-	</ul>
-	<script src="/script.js"></script>
+  <body ng-app="app">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Uploader</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/upload">Upload</a></li>
+        </ul>
+      </div>
+    </nav>
+    <hr>
+    <div ng-controller="testCtrl" class="container">
+      <div class="media animate-repeat" ng-repeat="image in images">
+        <div class="media-left">
+          <a href="{{image.url}}"><img src="{{image.url}}" class="media-object" style="max-height:100px;max-width:200px"></a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{image.name}}</h4>
+          <p><input image-url type="text" ng-model="image.url"><button ng-click="copyURL()">Copy URL</button></p><p><button ng-click="viewImage(image.name)">View</button> <button ng-click="deleteImage(image.name)">Delete</button></p>
+        </div>
+        <hr ng-show="true">
+      </div>
+      <div class="animate-repeat" ng-if="images.length === 0">
+        <strong>No image found...</strong>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>
