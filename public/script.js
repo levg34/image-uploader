@@ -3,7 +3,9 @@ var app = angular.module('app', [])
 app.controller('testCtrl', function($scope,$http) {
 	$scope.images = []
 	$scope.copyURL = function() {
-		// TODO
+		$('#url').focus()
+		$('#url').select()
+		document.execCommand('copy')
 	}
 	$scope.viewImage = function(image) {
 		window.location = '/success/'+image
@@ -19,4 +21,17 @@ app.controller('testCtrl', function($scope,$http) {
 	}).catch(function(errRes) {
 		// Handle errRess
 	})
+})
+
+app.directive('imageUrl', function() {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			scope.copyURL = function() {
+				$(element).focus()
+				$(element).select()
+				document.execCommand('copy')
+			}
+		}
+	}
 })
