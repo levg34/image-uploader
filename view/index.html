@@ -23,11 +23,11 @@
       </div>
     </nav>
     <div ng-controller="alertCtrl" class="container">
-      <div class="alert alert-success" ng-repeat="success in successes">
+      <div class="alert alert-success" ng-repeat="success in successes track by $index">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> {{success}}
       </div>
-      <div class="alert alert-danger" ng-repeat="error in errors">
+      <div class="alert alert-danger" ng-repeat="error in errors track by $index">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Error!</strong> {{error}}
       </div>
