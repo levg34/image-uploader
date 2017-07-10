@@ -9,10 +9,6 @@ var request = require('request')
 var fs = require('fs')
 
 app.use(express.static(__dirname + '/public'))
-//app.set('view engine', 'ejs')
-app.set('views', __dirname + '/view');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/view/index.html')
@@ -77,18 +73,12 @@ app.post('/upload', function (req, res) {
 		if (receivedFields.nickname&&receivedFields.token) {
 			sendURL('/view/'+file.name)
 		}
-		res.redirect('/success/'+file.name)
+		res.redirect('/?success='+file.name)
     })
 })
 
 app.get('/view/:image', function (req, res) {
 	res.sendFile(__dirname + '/uploads/'+req.params.image)
-})
-
-app.get('/success/:image', function (req, res) {
-	var file = req.params.image
-	var url = req.protocol+'://'+req.get('host')+'/view/'+file
-	res.render(__dirname + '/view/success.html',{img:true,file:file,url:url})
 })
 
 app.delete('/delete/:image', function (req, res) {
@@ -99,20 +89,6 @@ app.delete('/delete/:image', function (req, res) {
 	} catch (e) {
 		res.status(500).send(e.message)
 	}
-})
-
-app.get('/deleted/:image', function (req, res) {
-	var file = req.params.image
-	res.render(__dirname + '/view/deleted.html',{file:file})
-})
-
-app.get('/browse', function (req, res) {
-	var uploaded_files = []
-	fs.readdirSync(__dirname + '/uploads/').forEach(file => {
-		console.log(file)
-		uploaded_files.push(file)
-	})
-	res.render(__dirname + '/view/browse.html',{files: uploaded_files})
 })
 
 app.get('/images', function (req, res) {
