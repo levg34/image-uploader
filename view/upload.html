@@ -3,21 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Upload Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <!--
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
     -->
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Uploader</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li class="active"><a href="/upload">Upload</a></li>
+        </ul>
+      </div>
+    </nav>
     <div id="dropzone" hidden></div>
-    <form id="form" action="/upload" enctype="multipart/form-data" method="post">
-      <input type="file" name="upload" id="file"/>
-	  <input type="text" name="token" id="token" hidden>
-	  <input type="text" name="nickname" id="nickname" hidden>
-      <input id="submit_file" type="submit" value="Send file" disabled/>
-    </form>
-	<p id="back"><a href="/">Return to main page</a></p>
-    <script src="/upload_script.js"></script>	
+    <div class="container">
+      <form id="form" action="/upload" enctype="multipart/form-data" method="post">
+        <input type="file" name="upload" id="file">
+        <input type="text" name="token" id="token" hidden>
+        <input type="text" name="nickname" id="nickname" hidden>
+        <input id="submit_file" type="submit" value="Send file" disabled/>
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/upload_script.js"></script> 
   </body>
 </html>
