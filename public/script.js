@@ -39,7 +39,9 @@ app.service('alertService', function() {
 	}
 	
 	var removeAlert = function(alert) {
-		var index = alerts.findIndex(i => (i.type == alert.type)&&(i.message == alert.message))
+		var index = alerts.findIndex(function(i) {
+			return (i.type == alert.type)&&(i.message == alert.message)
+		})
 		if (index>-1) {
 			alerts.splice(index,1)
 		}
