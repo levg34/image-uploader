@@ -3,7 +3,7 @@ var app = angular.module('app', [])
 app.config(['$httpProvider', function($httpProvider) {
 	//initialize get if not there
 	if (!$httpProvider.defaults.headers.get) {
-		$httpProvider.defaults.headers.get = {};
+		$httpProvider.defaults.headers.get = {}
 	}
 
 	//disable IE ajax request caching
@@ -21,46 +21,34 @@ app.config(['$locationProvider', function($locationProvider) {
 }])
 
 app.service('alertService', function() {
-	var errors = []
-	var successes = []
+	var alerts = []
+	var strongs = {success:'Success!',info:'Info:',warning:'Warning!',danger:'Error!'}
 
-	var addError = function(newObj) {
-		errors.push(newObj)
-	}
-
-	var getErrors = function(){
-		return errors
-	}
-	
-	var removeError = function(error) {
-		var index = errors.indexOf(error)
-		if (index>-1) {
-			errors.splice(index,1)
+	var addAlert = function(alert) {
+		if (strongs[alert.type]) {
+			alert.strong = strongs[alert.type]
+		} else {
+			alert.strong = 'Alert!'
 		}
-	}
-	
-	var addSuccess = function(newObj) {
-		successes.push(newObj)
+		
+		alerts.push(alert)
 	}
 
-	var getSuccesses = function(){
-		return successes
+	var getAlerts = function(){
+		return alerts
 	}
 	
-	var removeSuccess = function (success) {
-		var index = successes.indexOf(success)
+	var removeAlert = function(alert) {
+		var index = alerts.findIndex(i => (i.type == alert.type)&&(i.message == alert.message))
 		if (index>-1) {
-			successes.splice(index,1)
+			alerts.splice(index,1)
 		}
 	}
 
 	return {
-		addError: addError,
-		getErrors: getErrors,
-		removeError: removeError,
-		addSuccess: addSuccess,
-		getSuccesses: getSuccesses,
-		removeSuccess: removeSuccess
+		addAlert: addAlert,
+		getAlerts: getAlerts,
+		removeAlert: removeAlert
 	}
 })
 
@@ -80,10 +68,10 @@ app.controller('imgListCtrl', function($scope,$http,alertService) {
 			method: 'DELETE'
 		}).then(function(result) {
 			$scope.refreshImageList()
-			alertService.addSuccess(image+' was deleted successfully.')
+			alertService.addAlert({type:'success',message:image+' was deleted successfully.'})
 		}).catch(function(error) {
 			console.log(error)
-			alertService.addError('Error deleting '+image+': '+error.data)
+			alertService.addAlert({type:'danger',message:'Error deleting '+image+': '+error.data})
 		})
 	}
 	$scope.refreshImageList = function() {
@@ -113,20 +101,16 @@ app.directive('imageUrl', function() {
 })
 
 app.controller('alertCtrl', function($scope,$location,alertService) {
-	$scope.errors = alertService.getErrors()
-	$scope.successes = alertService.getSuccesses()
+	$scope.alerts = alertService.getAlerts()
 	$scope.dispayAlerts = function() {
 		var params = $location.search()
 		if (params.success) {
-			alertService.addSuccess(params.success+' has been uploaded successfully.')
+			alertService.addAlert({type:'success',message:params.success+' has been uploaded successfully.'})
 			$location.search('success', null)
 		}
 	}
-	$scope.closeSuccess = function(success) {
-		alertService.removeSuccess(success)
-	}
-	$scope.closeError = function(error) {
-		alertService.removeError(error)
+	$scope.close = function(alert) {
+		alertService.removeAlert(alert)
 	}
 	$scope.dispayAlerts()
 })
