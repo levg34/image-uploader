@@ -1,5 +1,4 @@
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 9000
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+var server_port = process.env.PORT || 9000
 
 var express = require('express')
 var app = express()
@@ -27,9 +26,9 @@ app.post('/upload', function (req, res) {
 
 	function sendURL(_url) {
 		var baseURL = 'http://uploader-levg34.rhcloud.com'
-		if (server_ip_address=='127.0.0.1') {
-			baseURL=server_ip_address+':'+server_port
-		}
+		/*if (server_ip_address=='127.0.0.1') {
+			baseURL=server_ip_address+':'+server_port // TODO: check ip address
+		}*/
 		var url = baseURL+_url
 		
 		var postData = {
@@ -102,6 +101,6 @@ app.get('/images', function (req, res) {
 	res.json(uploaded_files)
 })
 
-server.listen(server_port,server_ip_address,function () {
-	console.log("Listening on " + server_ip_address + ", port " + server_port)
+server.listen(server_port,function () {
+	console.log("Listening on port " + server_port)
 })
