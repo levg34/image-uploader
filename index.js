@@ -25,7 +25,7 @@ app.post('/upload', function (req, res) {
 	var receivedFields = {}
 
 	function sendURL(_url) {
-		var baseURL = 'http://uploader-levg34.rhcloud.com'
+		var baseURL = 'http://uploader-levg34.herokuapp.com'
 		/*if (server_ip_address=='127.0.0.1') {
 			baseURL=server_ip_address+':'+server_port // TODO: check ip address
 		}*/
@@ -42,7 +42,7 @@ app.post('/upload', function (req, res) {
 		}
 
 		var options = {
-			url: 'http://nodechat-levg34.rhcloud.com/emit',
+			url: 'http://node-minou.herokuapp.com/emit',
 			//url: 'http://localhost:8080/emit', http://stackoverflow.com/questions/30128701/parse-form-value-with-formidable-to-filename
 			method: 'post',
 			headers: headers,
