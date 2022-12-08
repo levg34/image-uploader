@@ -25,7 +25,7 @@ app.post('/upload', function (req, res) {
 	var receivedFields = {}
 
 	function sendURL(_url) {
-		var baseURL = 'http://uploader-levg34.herokuapp.com'
+		var baseURL = 'https://remy-vps.guilhemdross.fr/uploader/'
 		/*if (server_ip_address=='127.0.0.1') {
 			baseURL=server_ip_address+':'+server_port // TODO: check ip address
 		}*/
@@ -70,9 +70,9 @@ app.post('/upload', function (req, res) {
 
     form.on('file', function (name, file){
 		if (receivedFields.nickname&&receivedFields.token) {
-			sendURL('/view/'+file.name)
+			sendURL('./view/'+file.name)
 		}
-		res.redirect('/?success='+file.name)
+		res.redirect('./?success='+file.name)
     })
 })
 
@@ -94,7 +94,7 @@ app.get('/images', function (req, res) {
 	var uploaded_files = []
 	fs.readdirSync(__dirname + '/uploads/').forEach(file => {
 		if (file != ".gitkeep") {
-			var url = req.protocol+'://'+req.get('host')+'/view/'+file
+			var url = req.protocol+'://'+req.get('host')+'/uploader/view/'+file
 			uploaded_files.push({name:file,url:url})
 		}
 	})

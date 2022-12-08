@@ -62,11 +62,11 @@ app.controller('imgListCtrl', function($scope,$http,alertService) {
 		document.execCommand('copy')
 	}
 	$scope.viewImage = function(image) {
-		window.location = '/view/'+image
+		window.location = './view/'+image
 	}
 	$scope.deleteImage = function(image) {
 		$http({
-			url: '/delete/'+image,
+			url: './delete/'+image,
 			method: 'DELETE'
 		}).then(function(result) {
 			$scope.refreshImageList()
@@ -79,7 +79,7 @@ app.controller('imgListCtrl', function($scope,$http,alertService) {
 	$scope.refreshImageList = function() {
 		$http({
 			method: 'GET',
-			url: '/images'
+			url: './images'
 		}).then(function(images) {
 			$scope.images = images.data
 		}).catch(function(error) {
